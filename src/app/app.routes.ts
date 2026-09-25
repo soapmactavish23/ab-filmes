@@ -33,4 +33,9 @@ export const routes: Routes = [
       { path: 'create', component: CreateMovie },
     ],
   },
+  {
+    path: '**',
+    redirectTo: 'auth/login',
+    pathMatch: 'full',
+  },
 ];
