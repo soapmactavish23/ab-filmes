@@ -1,10 +1,11 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { email, form, minLength, required, Field } from '@angular/forms/signals';
 import { UserApi } from '../../../../core/services/user-api';
 import { Router } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { tap } from 'rxjs';
 import { ILoginParams } from '../../models/login-params';
+import { setErrorMessage } from '../../../../shared/utils/set-error-message';
 
 @Component({
   selector: 'app-login-form',
@@ -15,8 +16,6 @@ import { ILoginParams } from '../../models/login-params';
 export class LoginForm {
   private readonly _userApi = inject(UserApi);
   private readonly _router = inject(Router);
-
-  loginErrorMessage = signal<string>('');
 
   loginModel = signal({
     email: '',
@@ -40,6 +39,8 @@ export class LoginForm {
         .login(params.email, params.password)
         .pipe(tap(() => this._router.navigate(['/explore']))),
   });
+
+  loginError = computed(() => setErrorMessage(this.loginResource.error()));
 
   login() {
     const { email, password } = this.loginForm().value();
