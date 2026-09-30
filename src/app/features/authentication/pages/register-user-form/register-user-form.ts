@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
-import { email, Field, form, minLength, required } from '@angular/forms/signals';
+import { email, Field, form, minLength, required, validate } from '@angular/forms/signals';
+import { confirmPassword } from '../../validators/confirm-password';
 
 @Component({
   selector: 'app-register-user-form',
@@ -12,6 +13,7 @@ export class RegisterUserForm {
     name: '',
     email: '',
     password: '',
+    confirmPassword: '',
   });
 
   registerForm = form(this.registerModel, (fieldPath) => {
@@ -22,5 +24,7 @@ export class RegisterUserForm {
 
     required(fieldPath.password, { message: 'A senha é obrigatória' });
     minLength(fieldPath.password, 8, { message: 'A senha deve ter no mínimo 8 caracteres.' });
+
+    confirmPassword(fieldPath.confirmPassword, fieldPath.password);
   });
 }
