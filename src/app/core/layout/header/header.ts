@@ -21,9 +21,8 @@ export class Header {
   }
 
   logout() {
-    console.log('Saindo do sistema...');
-
     this._userTokenStore.removeToken();
+    this._userInfosStore.removeUser();
 
     this._router.navigate(['/auth/login']);
   }
