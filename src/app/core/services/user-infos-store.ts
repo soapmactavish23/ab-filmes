@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { IUserInfos } from './user-infos';
+import { IUserInfos } from '../../shared/models/user-infos';
 
 @Injectable({ providedIn: 'root' })
 export class UserInfosStore {
