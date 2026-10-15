@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { IMovieResponse } from '../../../../shared/models/movies-response';
-import { MoviesListResponse } from '../../../../shared/types/movies-list-response';
+import { IMovieResponse } from '../../../shared/models/movies-response';
+import { MoviesListResponse } from '../../../shared/types/movies-list-response';
 
 @Injectable({
   providedIn: 'root',
