@@ -1,6 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, linkedSignal, signal } from '@angular/core';
 import { MoviesList } from '../../../../shared/components/movies-list/movies-list';
 import { MoviesFilter } from '../../components/movies-filter/movies-filter';
+import { MoviesApi } from '../../services/movies-api';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-explore-movies',
@@ -9,7 +11,24 @@ import { MoviesFilter } from '../../components/movies-filter/movies-filter';
   styleUrl: './explore-movies.css',
 })
 export class ExploreMovies {
+  private readonly _moviesApi = inject(MoviesApi);
+
   movies = signal([{}]);
+
+  moveisResource = rxResource({
+    params: () => true,
+    stream: () => this._moviesApi.getMovies(),
+  });
+
+  moviesFiltered = linkedSignal(() => {
+    const ERROR_ON_RESPONSE = !!this.moveisResource.error();
+
+    if (ERROR_ON_RESPONSE) return [];
+
+    const moviesList = this.moveisResource.value();
+
+    return moviesList ?? [];
+  });
 
   adicionarFilme() {}
 }
