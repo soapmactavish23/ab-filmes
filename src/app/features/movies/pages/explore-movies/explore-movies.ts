@@ -13,7 +13,8 @@ import { rxResource } from '@angular/core/rxjs-interop';
 export class ExploreMovies {
   private readonly _moviesApi = inject(MoviesApi);
 
-  movies = signal([{}]);
+  movieTitleFilter = signal('');
+  movieCategoryFilter = signal('');
 
   moveisResource = rxResource({
     params: () => true,
@@ -21,13 +22,24 @@ export class ExploreMovies {
   });
 
   moviesFiltered = linkedSignal(() => {
+    const moviesList = this.moveisResource.value() ?? [];
     const ERROR_ON_RESPONSE = !!this.moveisResource.error();
 
     if (ERROR_ON_RESPONSE) return [];
 
-    const moviesList = this.moveisResource.value();
+    const titleSearch = this.movieTitleFilter().toLowerCase().trim();
+    const categorySearch = this.movieCategoryFilter().toLowerCase().trim();
 
-    return moviesList ?? [];
+    if (!titleSearch && !categorySearch) return moviesList;
+
+    return moviesList.filter((movie) => {
+      const matchesTitle = titleSearch ? movie.titulo.toLowerCase().includes(titleSearch) : true;
+      const matchesCategory = categorySearch
+        ? movie.genero.toLowerCase().includes(categorySearch)
+        : true;
+
+      return matchesTitle && matchesCategory;
+    });
   });
 
   adicionarFilme() {}
