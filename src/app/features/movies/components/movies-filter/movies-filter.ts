@@ -11,5 +11,8 @@ export class MoviesFilter {
   title = model('');
   category = model('');
 
-  ngOnInit() {}
+  clearFilter() {
+    this.title.set('');
+    this.category.set('');
+  }
 }
