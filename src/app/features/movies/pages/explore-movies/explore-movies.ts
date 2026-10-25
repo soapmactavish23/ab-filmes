@@ -16,14 +16,14 @@ export class ExploreMovies {
   movieTitleFilter = signal('');
   movieCategoryFilter = signal('');
 
-  moveisResource = rxResource({
+  moviesResource = rxResource({
     params: () => true,
     stream: () => this._moviesApi.getMovies(),
   });
 
   moviesFiltered = linkedSignal(() => {
-    const moviesList = this.moveisResource.value() ?? [];
-    const ERROR_ON_RESPONSE = !!this.moveisResource.error();
+    const moviesList = this.moviesResource.value() ?? [];
+    const ERROR_ON_RESPONSE = !!this.moviesResource.error();
 
     if (ERROR_ON_RESPONSE) return [];
 
