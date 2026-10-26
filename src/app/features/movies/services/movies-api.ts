@@ -12,4 +12,8 @@ export class MoviesApi {
   getMovies() {
     return this._httpClient.get<MoviesListResponse>('http://localhost:3000/movies');
   }
+
+  getMovieDetails(id: number) {
+    return this._httpClient.get<IMovieResponse>(`http://localhost:3000/movies/${id}`);
+  }
 }
