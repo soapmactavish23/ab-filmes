@@ -1,10 +1,11 @@
+import { RouterLink } from '@angular/router';
 import { Component, input } from '@angular/core';
 import { MoviesListResponse } from '../../types/movies-list-response';
 import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-movies-list',
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, RouterLink],
   templateUrl: './movies-list.html',
   styleUrl: './movies-list.css',
   host: {
