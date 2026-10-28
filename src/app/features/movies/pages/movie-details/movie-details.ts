@@ -45,8 +45,6 @@ export class MovieDetails {
 
     const boolArray = [0, 1, 2, 3, 4].map((index) => index < rating);
 
-    console.log('boolArray', boolArray);
-
     return boolArray;
   });
 
