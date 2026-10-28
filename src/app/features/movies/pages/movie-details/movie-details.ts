@@ -1,4 +1,12 @@
-import { Component, inject, input, linkedSignal, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  linkedSignal,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { MoviesApi } from '../../services/movies-api';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { DecimalPipe } from '@angular/common';
@@ -30,12 +38,28 @@ export class MovieDetails {
   });
 
   isFavorite: WritableSignal<boolean> = signal(false);
-  currentRating = signal<number | undefined>(4); // Inicia com 4 estrelas preenchidas
+  currentRating = signal<number | undefined>(undefined);
+
+  starsStatusFilled = computed(() => {
+    const rating = this.currentRating() ?? 0;
+
+    const boolArray = [0, 1, 2, 3, 4].map((index) => index < rating);
+
+    console.log('boolArray', boolArray);
+
+    return boolArray;
+  });
 
   toggleFavorite() {
     this.isFavorite.update((value) => !value);
     console.log(`Filme agora é favorito: ${this.isFavorite()}`);
   }
 
-  updateRating(newRating: number) {}
+  updateRating(newRating: number) {
+    if (newRating === this.currentRating()) {
+      this.currentRating.set(0);
+    } else {
+      this.currentRating.set(newRating);
+    }
+  }
 }
