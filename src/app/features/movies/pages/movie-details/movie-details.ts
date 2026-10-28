@@ -10,6 +10,7 @@ import {
 import { MoviesApi } from '../../services/movies-api';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { DecimalPipe } from '@angular/common';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-movie-details',
@@ -56,7 +57,12 @@ export class MovieDetails {
 
       return undefined;
     },
-    stream: ({ params }) => this._moviesApi.rateMovie(params.id, params.rating),
+    stream: ({ params }) =>
+      this._moviesApi.rateMovie(params.id, params.rating).pipe(
+        tap((movieUpdated) => {
+          this.movieDetails.set(movieUpdated);
+        }),
+      ),
   });
 
   toggleFavorite() {
