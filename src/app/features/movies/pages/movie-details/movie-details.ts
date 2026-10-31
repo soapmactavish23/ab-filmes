@@ -11,6 +11,7 @@ import { MoviesApi } from '../../services/movies-api';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { DecimalPipe } from '@angular/common';
 import { tap } from 'rxjs';
+import { FavoritesApi } from '../../../../shared/services/favorites-api';
 
 @Component({
   selector: 'app-movie-details',
@@ -20,6 +21,7 @@ import { tap } from 'rxjs';
 })
 export class MovieDetails {
   private readonly _moviesApi = inject(MoviesApi);
+  private readonly _favoritesApi = inject(FavoritesApi);
 
   readonly BASE_URL = 'http://localhost:3000';
 
@@ -38,7 +40,6 @@ export class MovieDetails {
     return this.movieDetailsResource.value();
   });
 
-  isFavorite: WritableSignal<boolean> = signal(false);
   currentRating = signal<number | undefined>(undefined);
 
   starsStatusFilled = computed(() => {
@@ -63,6 +64,19 @@ export class MovieDetails {
           this.movieDetails.set(movieUpdated);
         }),
       ),
+  });
+
+  isMovieFavoriteResource = rxResource({
+    params: () => this.id(),
+    stream: ({ params }) => this._favoritesApi.inMovieInFavorites(+params),
+  });
+
+  isFavorite = linkedSignal(() => {
+    const ERROR_ON_RESPONSE = !!this.isMovieFavoriteResource.error();
+
+    if (ERROR_ON_RESPONSE) return false;
+
+    return this.isMovieFavoriteResource.value() ?? false;
   });
 
   toggleFavorite() {
