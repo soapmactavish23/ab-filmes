@@ -1,3 +1,4 @@
+import { RouterLink } from '@angular/router';
 import { Component, inject, linkedSignal, signal } from '@angular/core';
 import { MoviesList } from '../../../../shared/components/movies-list/movies-list';
 import { MoviesFilter } from '../../components/movies-filter/movies-filter';
@@ -6,7 +7,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-explore-movies',
-  imports: [MoviesList, MoviesFilter],
+  imports: [MoviesList, MoviesFilter, RouterLink],
   templateUrl: './explore-movies.html',
   styleUrl: './explore-movies.css',
 })
