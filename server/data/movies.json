@@ -28,5 +28,15 @@
     "caminhoImagem": "/uploads/image-1793995133587-496950147.jpg",
     "qtdVotos": 0,
     "mediaVotos": 0
+  },
+  {
+    "id": 1793995496216,
+    "titulo": "A Empregada",
+    "descricao": "Filme de Suspense",
+    "genero": "Suspense",
+    "anoLancamento": 2025,
+    "caminhoImagem": "/uploads/image-1793995496214-848826359.png",
+    "qtdVotos": 0,
+    "mediaVotos": 0
   }
 ]
