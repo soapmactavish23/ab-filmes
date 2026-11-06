@@ -18,5 +18,15 @@
     "caminhoImagem": "/uploads/image-1765666870177-14156342.jpg",
     "qtdVotos": 188,
     "mediaVotos": 4.8421
+  },
+  {
+    "id": 1793995133590,
+    "titulo": "Velozes e Furiosos",
+    "descricao": "Teste",
+    "genero": "Ação",
+    "anoLancamento": 2026,
+    "caminhoImagem": "/uploads/image-1793995133587-496950147.jpg",
+    "qtdVotos": 0,
+    "mediaVotos": 0
   }
 ]
